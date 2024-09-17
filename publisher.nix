@@ -14,19 +14,19 @@
       systems = {
         aarch64-darwin = {
           target = "aarch64-apple-darwin";
-          sha256 = "4864edb0cef89f60aeda7d299341483c7a350e0435bceca8cc48b2ac695d9328";
+          sha256 = "1ba61d9c735e28b76c1845fe9ff38b9e02ea489b63998208efd8e4e57aa9875c";
         };
         x86_64-darwin = {
           target = "x86_64-apple-darwin";
-          sha256 = "6208267af77a718d19f621c53d64fd45b6869d7651e359c315887702506fe008";
+          sha256 = "8618249b570f94f9c4023b4ae1fe660997074f6cb1e3afad60d3113871ff4f96";
         };
         x86_64-linux = {
           target = "x86_64-unknown-linux-gnu";
-          sha256 = "5e676ecaf211574851b73a0628b956f90ac55380055fa8007f5feb4193611d5d";
+          sha256 = "593346067c1e3db8efa4b7ebd5474183e5f5aff0b06b27bd49e1d7b4683204c3";
         };
         i686-linux = {
           target = "i686-unknown-linux-gnu";
-          sha256 = "aae4c2d679c2206fcdb58143f6a08be6437bdab0bbc103b59de01525c72288ee";
+          sha256 = "bc8d9abfba1867188c5c86186d87fe1f277390dab625dd354a58db9082b0e2a1";
         };
       };
     in eachSystem (mapAttrsToList (n: v: n) systems) (system: {
@@ -34,7 +34,7 @@
 
         stdenv.mkDerivation rec {
           name = "publisher-${version}";
-          version = "0.1.5";
+          version = "0.1.6";
 
           nativeBuildInputs = [ unzip ];
 
@@ -50,7 +50,7 @@
             install -Dm755 LICENSE $out/share/licenses/publisher/LICENSE
           '';
 
-          meta = with lib; {
+          meta = {
             description = "Tool to publish & distribute CLI tools";
             homepage = "https://github.com/termapps/publisher";
             platforms = [ system ];
