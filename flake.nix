@@ -13,15 +13,15 @@
 
     eachSystem allSystems (system:
       let
-        readFiles = filterAttrs
+        files = mapAttrsToList (n: v: ./. + "/${n}") (filterAttrs
           (n: v: v == "regular" && n != "flake.nix" && hasSuffix ".nix" n)
-          (builtins.readDir ./.);
-        files = mapAttrsToList (n: v: ./. + "/${n}") readFiles;
+          (builtins.readDir ./.));
         pkgs = map (p:
           let
             pkg = ((import p).outputs {
               inherit self;
               inherit nixpkgs;
+              inherit flake-utils;
             }).packages;
           in if hasAttr system pkg then {
             name = removeSuffix ".nix" (baseNameOf p);
